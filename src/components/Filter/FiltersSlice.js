@@ -1,20 +1,22 @@
-const initialState = {
-	search: "",
-	status: "All",
-	priority: [],
-};
+import { createSlice } from "@reduxjs/toolkit";
 
-const filtersReducer = (state = initialState, action) => {
-	switch (action.type) {
-		case "filters/searchFiltersChange":
-			return { ...state, search: action.payload };
-		case "filters/statusFiltersChange":
-			return { ...state, status: action.payload };
-		case "filters/priorityFiltersChange":
-			return { ...state, priority: action.payload };
-		default:
-			return state;
-	}
-};
-
-export default filtersReducer;
+// Toolkit cos IMMER nên có thể viết immutation như là mutation
+export default createSlice({
+	name: "filters",
+	initialState: {
+		search: "",
+		status: "All",
+		priority: [],
+	},
+	reducers: {
+		searchFiltersChange: (state, action) => {
+			state.search = action.payload;
+		},
+		statusFiltersChange: (state, action) => {
+			state.status = action.payload;
+		},
+		priorityFiltersChange: (state, action) => {
+			state.priority = action.payload;
+		},
+	},
+});

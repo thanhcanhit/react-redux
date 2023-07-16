@@ -6,7 +6,10 @@ const customColor = { High: "red", Low: "grey", Medium: "blue" };
 export default function PriorityTag({ label, isDeleted }) {
 	return (
 		<Tag
-			style={{ textDecoration: isDeleted && "line-through", opacity: isDeleted && 0.6 }}
+			style={{
+				textDecoration: isDeleted && "line-through",
+				opacity: isDeleted && 0.6,
+			}}
 			color={customColor[label]}
 		>
 			{label}

@@ -1,4 +1,4 @@
-import { createSelector } from "reselect";
+import { createSelector } from "@reduxjs/toolkit";
 
 const filtersSelector = (state) => state.filters;
 const filtersSearchSelector = (state) => state.filters.search;
@@ -9,10 +9,7 @@ const todoListSelector = (state) => state.todoList;
 const restTodoListSelector = createSelector(
 	[filtersSelector, todoListSelector],
 	(filters, todoList) => {
-		const searchText = filters.search;
-		const status = filters.status;
-		const priorities = filters.priority;
-
+		const { search: searchText, status, priority: priorities } = filters;
 		let restTodoList = [...todoList];
 
 		if (searchText)
