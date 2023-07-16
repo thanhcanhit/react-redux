@@ -5,14 +5,14 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import TodoItem from "./TodoItem";
 import PriorityTag from "../PriorityTag/PriorityTag";
-import { todoListSelector } from "../../redux/selectors";
+import { restTodoListSelector } from "../../redux/selectors";
 
 export default function TodoList() {
 	const [todoName, setTodoName] = useState("");
 	const [todoPriority, setTodoPriority] = useState("Medium");
 
 	const dispatch = useDispatch();
-	const todoList = useSelector(todoListSelector);
+	const todoList = useSelector(restTodoListSelector);
 
 	const handleInputChange = (e) => {
 		setTodoName(e.target.value);

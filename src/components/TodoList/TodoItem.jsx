@@ -1,4 +1,4 @@
-import { Row, Col, Checkbox } from "antd";
+import { Row, Col, Checkbox, Typography } from "antd";
 import PropTypes from "prop-types";
 import PriorityTag from "../PriorityTag/PriorityTag";
 
@@ -12,13 +12,21 @@ export default function TodoItem({ todo, onChange }) {
 					style={{ width: "100%" }}
 					onClick={() => onChange(id)}
 				>
-					{name}
+					<Typography.Paragraph
+						delete={isCompleted}
+						style={{
+							marginBottom: 0,
+							color: isCompleted ? "grey" : "inherit",
+						}}
+					>
+						{name}
+					</Typography.Paragraph>
 				</Checkbox>
 			</Col>
 
 			<Col span={4}>
 				<Row justify="end">
-					<PriorityTag label={priority} />
+					<PriorityTag label={priority} isDeleted={isCompleted}/>
 				</Row>
 			</Col>
 		</Row>
