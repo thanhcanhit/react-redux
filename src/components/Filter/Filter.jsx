@@ -1,4 +1,11 @@
+import { useState } from "react";
 import { Typography, Input, Radio, Select, Row, Col } from "antd";
+import { useDispatch } from "react-redux";
+import {
+	priorityFiltersChange,
+	searchFiltersChange,
+	statusFiltersChange,
+} from "../../redux/actions";
 import PriorityTag from "../PriorityTag/PriorityTag";
 
 const { Title } = Typography;
@@ -19,6 +26,28 @@ const formSelectOptions = [
 ];
 
 export default function Filter() {
+	const [searchText, setSearchText] = useState("");
+	const [statusRadio, setStatusRadio] = useState("All");
+	const [priority, setPriority] = useState([]);
+	const dispatch = useDispatch();
+
+	const handleSearchTextChange = (e) => {
+		const value = e.target.value;
+		setSearchText(value);
+		dispatch(searchFiltersChange(value));
+	};
+
+	const handleStatusChange = (e) => {
+		const value = e.target.value;
+		setStatusRadio(value);
+		dispatch(statusFiltersChange(value));
+	};
+
+	const handlePriorityChange = (value) => {
+		setPriority(value);
+		dispatch(priorityFiltersChange(value));
+	};
+
 	return (
 		<Row>
 			<Col span={24}>
@@ -27,6 +56,8 @@ export default function Filter() {
 				</Title>
 				<Input
 					placeholder="Input search text"
+					value={searchText}
+					onChange={handleSearchTextChange}
 					style={{ width: "100%" }}
 				/>
 			</Col>
@@ -34,7 +65,7 @@ export default function Filter() {
 				<Title level={5} style={{ marginTop: 8 }}>
 					Filter by status
 				</Title>
-				<Radio.Group>
+				<Radio.Group value={statusRadio} onChange={handleStatusChange}>
 					<Radio value="All">All</Radio>
 					<Radio value="Completed">Completed</Radio>
 					<Radio value="To do">To do</Radio>
@@ -42,7 +73,7 @@ export default function Filter() {
 			</Col>
 			<Col span={24}>
 				<Title level={5} style={{ marginTop: 8 }}>
-					Filter by status
+					Filter by priority
 				</Title>
 
 				<Select
@@ -53,6 +84,8 @@ export default function Filter() {
 					placeholder="Type"
 					tagRender={PriorityTag}
 					options={formSelectOptions}
+					value={priority}
+					onChange={handlePriorityChange}
 				/>
 			</Col>
 		</Row>
